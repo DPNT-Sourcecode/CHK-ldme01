@@ -34,7 +34,11 @@ freebies = {
         'U': (3, 'U'),
 }
 group_policies = [
-        {'size': 3, 'skus': ('S', 'T', 'X', 'Y', 'Z')}
+        {
+            'size': 3,
+            'skus': ('S', 'T', 'X', 'Y', 'Z'),
+            'price': 45
+        }
 ]
 
 # noinspection PyUnusedLocal
@@ -55,6 +59,8 @@ def checkout(skus):
             counts[sku] = counts[sku]//applicable_count*deal_count + counts[sku]%applicable_count
         else:
             counts[freebies[sku][1]] = counts.get(freebies[sku][1], 0) - min(counts.get(freebies[sku][1], 0), counts[sku]//freebies[sku][0])
+
+    counter = 0
 
     for group in group_policies:
         # Get current group policy SKUs and sort them in order of higher price first
@@ -78,8 +84,8 @@ def checkout(skus):
                 else:
                     break
             applicable_size -= group['size']
+            counter += group['price']
 
-    counter = 0
     for sku in counts:
         if isinstance(price_mapping[sku], int):
             counter += counts[sku]*price_mapping[sku]
@@ -92,4 +98,5 @@ def checkout(skus):
                 curr_sku_count = curr_sku_count%curr_deal
 
     return counter
+
 

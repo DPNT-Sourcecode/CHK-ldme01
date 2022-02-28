@@ -18,6 +18,3 @@ def checkout(skus):
     counter += counts.get('A', 0)//5*200 + counts.get('A', 0)%5//3*130 + counts.get('A', 0)%5%3*50
     counter += counts.get('F', 0)//3*20+counts.get('F', 0)%3*10
     return counter
-
-
-

@@ -9,4 +9,3 @@ class TestChk():
         assert checkout_solution.checkout('') == 0
         assert checkout_solution.checkout('ABCD') == 115
         assert checkout_solution.checkout('W') == -1
-

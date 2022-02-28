@@ -27,11 +27,11 @@ price_mapping = {
         'Z': 50
 }
 freebies = {
-        'E': {2: 'B'},
-        'F': {2: 'F'},
-        'N': {3: 'M'},
-        'R': {3: 'Q'},
-        'U': {3: 'U'},
+        'E': (2, 'B'),
+        'F': (2, 'F'),
+        'N': (3, 'M'),
+        'R': (3, 'Q'),
+        'U': (3, 'U'),
 }
 
 # noinspection PyUnusedLocal
@@ -46,9 +46,12 @@ def checkout(skus):
     for sku in freebies:
         if sku not in counts:
             continue
-        import pdb; pdb.set_trace()
-        for count in freebies[sku]:
-            counts[freebies[sku][count]] = counts.get(freebies[sku][count], 0) - min(counts.get(freebies[sku][count], 0), counts[sku]//count)
+        if sku == freebies[sku][1]:
+            deal_count = freebies[sku][0]
+            applicable_count = 1 + deal_count
+            counts[sku] = counts[sku]//applicable_count*deal_count + counts[sku]%applicable_count
+        else:
+            counts[freebies[sku][1]] = counts.get(freebies[sku][1], 0) - min(counts.get(freebies[sku][1], 0), counts[sku]//freebies[sku][0])
 
     counter = 0
     for sku in counts:
@@ -63,3 +66,4 @@ def checkout(skus):
                 curr_sku_count = curr_sku_count%curr_deal
 
     return counter
+

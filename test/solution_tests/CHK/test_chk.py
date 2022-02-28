@@ -9,7 +9,6 @@ class TestChk():
         assert checkout_solution.checkout('AAAAAA') == 250
         assert checkout_solution.checkout('BBB') == 75
         assert checkout_solution.checkout('') == 0
-        import pdb; pdb.set_trace()
         assert checkout_solution.checkout('ABCD') == 115
         assert checkout_solution.checkout('2') == -1
         assert checkout_solution.checkout('BBBEE') == 125
@@ -17,5 +16,3 @@ class TestChk():
         assert checkout_solution.checkout('FFF') == 20
         assert checkout_solution.checkout('FFFF') == 30
         assert checkout_solution.checkout('FFFFFF') == 40
-
-

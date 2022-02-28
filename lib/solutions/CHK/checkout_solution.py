@@ -3,7 +3,7 @@ price_mapping = {
         'B': {2: 45, 1: 30},
         'C': 20,
         'D': 15,
-        'E': '40',
+        'E': 40,
         'F': 10,
         'G': 20,
         'H': {10: 80, 5: 45, 1: 10},
@@ -46,12 +46,13 @@ def checkout(skus):
     for sku in freebies:
         if sku not in counts:
             continue
+        import pdb; pdb.set_trace()
         for count in freebies[sku]:
             counts[freebies[sku][count]] = counts.get(freebies[sku][count], 0) - min(counts.get(freebies[sku][count], 0), counts[sku]//count)
 
     counter = 0
     for sku in counts:
-        if isinstance(price_mapping[sku], str):
+        if isinstance(price_mapping[sku], int):
             counter += counts[sku]*price_mapping[sku]
         elif isinstance(price_mapping[sku], dict):
             curr_sku_count = counts[sku]
@@ -62,6 +63,3 @@ def checkout(skus):
                 curr_sku_count = curr_sku_count%curr_deal
 
     return counter
-
-
-

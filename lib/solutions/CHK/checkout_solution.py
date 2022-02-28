@@ -42,10 +42,15 @@ def checkout(skus):
         counts[sku] = counts.get(sku, 0)+1
     if not set(counts.keys()).issubset(set(price_mapping.keys())):
         return -1
+
     for sku in freebies:
+        if sku not in counts:
+            continue
         for count in freebies[sku]:
-            counts.get(freebies[sku][count], 0) -= min(counts[sku]//count, counts.get(freebies[sku][count], 0))
+            counts[freebies[sku][count]] = counts.get(freebies[sku][count], 0) - min(counts.get(freebies[sku][count], 0), counts[sku]//count)
+
     counter = 0
+    import pdb; pdb.set_trace()
     for sku in counts:
         if isinstance(price_mapping[sku], str):
             counter += counts[sku]*price_mapping[sku]
@@ -54,8 +59,9 @@ def checkout(skus):
             deals_for_count = list(price_mapping[sku].keys())
             deals_for_count.sort()
             for curr_deal in deals_for_count:
-                counter += curr_sku_count//curr_deal*proce_mapping[sku][curr_deal]
+                counter += curr_sku_count//curr_deal*price_mapping[sku][curr_deal]
                 curr_sku_count -= curr_sku_count//curr_deal
 
     return counter
+
 

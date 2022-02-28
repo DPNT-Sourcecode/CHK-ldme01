@@ -50,18 +50,18 @@ def checkout(skus):
             counts[freebies[sku][count]] = counts.get(freebies[sku][count], 0) - min(counts.get(freebies[sku][count], 0), counts[sku]//count)
 
     counter = 0
-    import pdb; pdb.set_trace()
     for sku in counts:
         if isinstance(price_mapping[sku], str):
             counter += counts[sku]*price_mapping[sku]
         elif isinstance(price_mapping[sku], dict):
             curr_sku_count = counts[sku]
             deals_for_count = list(price_mapping[sku].keys())
-            deals_for_count.sort()
+            deals_for_count.sort(reverse=True)
             for curr_deal in deals_for_count:
                 counter += curr_sku_count//curr_deal*price_mapping[sku][curr_deal]
-                curr_sku_count -= curr_sku_count//curr_deal
+                curr_sku_count = curr_sku_count%curr_deal
 
     return counter
+
 
 

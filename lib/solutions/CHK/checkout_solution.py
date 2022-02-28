@@ -66,4 +66,3 @@ def checkout(skus):
                 curr_sku_count = curr_sku_count%curr_deal
 
     return counter
-
